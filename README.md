@@ -3,7 +3,6 @@
 **A SQL-based exploratory data analysis of traffic accidents in Okinawa, Japan**
   
 
-
 ## Overview
 
 Driving in Okinawa, Japan’s southernmost prefecture, presents unique traffic conditions. In addition to local residents, road users include U.S. military personnel, their dependents, and tourists unfamiliar with local roads.
@@ -16,11 +15,11 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
 - File: data/eng_2024_main.csv
 - Source: National Police Agency Open Data  
 - Link: https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html
-- Contains: Year 2024 Nationwide traffic accident records including date, time, location, road conditions, weather and parties involved.
+- Contains: Year 2024 Nationwide traffic accident records including date, time, location, road conditions, weather and parties involved (see "Data Quality Notes" below)
 
-🗄️ Okinawa Prefecture Specific Dataset
-- Extracted from the main dataset using SQL
-- Stored as a filtered subset for analysis
+🗄️ 2024 Okinawa Prefecture Subset
+- Extracted from the main dataset for the analysis
+- File: data/okinawa_2024_accidents.csv (see "Data Quality Notes" below)
 
 🗄️ Supporting Documentation
 - File: data/eng_oka_municipalities.csv
@@ -28,6 +27,11 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
  
 - Link: https://www.npa.go.jp/publications/statistics/koutsuu/opendata/koudohyou/koudohyou.html
 - Downloadable documentation (Japanese only) for interpreting codes
+
+## Data Quality Notes
+- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
+- **Data Gap**: 2024 Okinwawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
+- **Primary key**: `report_id` alone is not unique. The combination of `report_id` and `police_station_code` uniquely identifies each record.
 
 ---
 ## Analysis Approach
@@ -84,6 +88,7 @@ sql/
 data/
 ├── eng_2024_main.csv
 └── eng_oka_municipalities.csv
+└── okinawa_2024_accidents.csv
 
 images/
 ```
