@@ -29,9 +29,23 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
 - Downloadable documentation (Japanese only) for interpreting codes
 
 ## Data Quality Notes
-- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
-- **Data Gap**: 2024 Okinwawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
+- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurrence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
+- **Data Gap**: 2024 Okinawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
 - **Primary key**: `report_id` alone is not unique. The combination of `report_id` and `police_station_code` uniquely identifies each record.
+
+## Dataset Scope  
+- **Accident coverage:** The dataset contains only road traffic accidents involving casualties. Property-damage-only accidents are not included.
+- **Severity coding:**
+  - **Code 1:** One or more fatalities within 24 hours of the accident.
+  - **Code 2:** Injury-only accident (no fatalities).
+- **Day of the week coding:**
+  - **1:** Sunday
+  - **2:** Monday
+  - **3:** Tuesday
+  - **4:** Wednesday
+  - **5:** Thursday
+  - **6:** Friday
+  - **7:** Saturday 
 
 ---
 ## Analysis Approach
@@ -51,10 +65,12 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
 - List of datasets and data sources
 - Load and validate 2024 accident main dataset
 - Clean data if necessary and prepare for analysis
+- Tool: Pandas
   
 **🚗 Part 2: The Big Picture: A Summary View**  
 - Overall volume and severity
 - Basic temporal patterns (month, day, hour)
+- Tool: 
 
 **🚗 Part 3: Spatial Analysis: Where?**  
 - High risk locations, roads and junctions
@@ -76,12 +92,14 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
 
 ```text
 notebooks/
+├── config.py
 ├── 01_data_loading_and_validation.ipynb
 ├── 02_summary_analysis.ipynb
 ├── 03_spatial_analysis.ipynb
 ├── 04_temporal_analysis.ipynb
 ├── 05_categorical_analysis.ipynb
 └── 06_findings_and_recommendations.ipynb
+
 
 sql/
 
