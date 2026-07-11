@@ -29,7 +29,7 @@ This project uses SQL and Python based exploratory data analysis (EDA) to identi
 - Downloadable documentation (Japanese only) for interpreting codes
 
 ## Data Quality Notes
-- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurrence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
+- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
 - **Data Gap**: 2024 Okinawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
 - **Primary key**: `report_id` alone is not unique. The combination of `report_id` and `police_station_code` uniquely identifies each record.
 

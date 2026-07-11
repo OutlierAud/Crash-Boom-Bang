@@ -1,5 +1,7 @@
 import duckdb
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 from config import FILTERED_DATA_PATH
 
 
