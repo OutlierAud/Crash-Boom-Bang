@@ -11,3 +11,6 @@ else:
     )
 
 FILTERED_DATA_PATH = "../data/okinawa_2024_accidents.csv"
+MUNICIPAL_DATA_PATH = "../data/eng_oka_municipalities.csv"
+
+
