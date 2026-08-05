@@ -57,7 +57,7 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 
 **3. Visualization & Reporting (Python)**
 - **Pandas:** Data loading, wrangling, and validation.
-- **Folium:** Interactive heat maps and ranked markers for geospatial analysis (Part 3).
+- **Folium:** Interactive heat map for geospatial analysis (Part 3).
 - **Matplotlib / Seaborn:** Static statistical charts (bar charts, Pareto charts, temporal trends) across all notebooks.
 - **Validation:** Cross-checked top identified black spots against official National Police Agency (NPA) road safety reports.
 
