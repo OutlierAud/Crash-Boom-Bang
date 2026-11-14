@@ -1,0 +1,14 @@
+[project]
+name = "crash-boom-bang"
+version = "0.1.0"
+description = "Exploratory analysis of traffic accidents in Okinawa, Japan"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "duckdb==1.5.4",
+    "folium==0.20.0",
+    "ipykernel==7.2.0",
+    "matplotlib==3.11.0",
+    "numpy==2.4.6",
+    "pandas==3.0.3",
+    "seaborn>=0.13.0,<0.14.0",
+]
