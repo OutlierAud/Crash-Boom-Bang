@@ -28,6 +28,8 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 - Link: https://www.npa.go.jp/publications/statistics/koutsuu/opendata/koudohyou/koudohyou.html
 - Downloadable documentation (Japanese only) for interpreting codes
 
+📖 **Code reference** [National Police Agency 2024 codebook (PDF)](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2024/codebook_2024.pdf) (Japanese only)
+
 ## Data Quality Notes
 - **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurrence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
 - **Data Gap**: The 2024 Okinawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
@@ -59,9 +61,23 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 - **Pandas:** Data loading, wrangling, and validation.
 - **Folium:** Interactive heat map for geospatial analysis (Part 3).
 - **Matplotlib / Seaborn:** Static statistical charts (bar charts, Pareto charts, temporal trends) across all notebooks.
-- **Validation:** Cross-checked top identified black spots against official National Police Agency (NPA) road safety reports.
+- **Validation:** Recomputed the headline figures from the project data and checked category definitions against the NPA codebook. Part 6 summarises the verified figures and the limits of the hotspot analysis.
 
 --- 
+## Run the notebooks with uv
+
+With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, run these commands from the repository root:
+
+```sh
+uv sync --locked
+uv run --locked python -m ipykernel install --sys-prefix --name crash-boom-bang --display-name "Python (Crash-Boom-Bang uv)"
+```
+
+uv creates `.venv` with Python 3.14 and installs the dependencies from `uv.lock`. The second command registers the notebook kernel within that environment.
+
+Open the repo in VS Code with the Python and Jupyter extensions. In each notebook, select **Python (Crash-Boom-Bang uv)** in the kernel picker. If the named kernel does not appear, choose the repository's `.venv` under **Python Environments**. Run the notebooks in order from Part 1 to Part 6. The notebooks use `notebooks/` as their working directory.
+
+---
 ## Analysis Roadmap
 
 **🚗 Part 1: Initial Data Exploration & Check**  
@@ -93,14 +109,25 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 
 **🚗 Part 6: Key Findings & Recommendations**  
 - Synthesis of insights and actionable takeaways
-- **Tool:** Markdown summary
+- **Tool:** DuckDB, Markdown, D3.js
 
---- 
+---
+## Executive Report
+
+Open [executive_report/index.html](executive_report/index.html) in a browser for a short overview of where and when crashes occurred and what to investigate first. D3.js is included locally, so the report opens offline.
+
+- Edit headings and text in `executive_report/index.html`.
+- Change colours, spacing and typography in `executive_report/styles.css`. The main design settings are at the top.
+- Change chart layouts and labels in `executive_report/charts.js`.
+- To refresh the figures after changing the source CSVs, run `uv run --locked python executive_report/build_data.py` from the project folder. Review the report text and notebook findings if the figures change.
+
+The horizontal bars and time-of-day heatmap draw on Yan Holtz’s D3 Graph Gallery examples for [horizontal bars](https://d3-graph-gallery.com/graph/barplot_horizontal.html) and [heatmaps](https://d3-graph-gallery.com/graph/heatmap_tooltip.html).
+
+---
 ## Project Structure
 
 ```text
 notebooks/
-├── config.py
 ├── 01_data_loading_and_validation.ipynb
 ├── 02_summary_analysis.ipynb
 ├── 03_spatial_analysis.ipynb
@@ -110,14 +137,24 @@ notebooks/
 └── config.py
 
 sql/
-└── notebook_setup.sql
+└── notebook_setup.py
 
 data/
 ├── eng_2024_main.csv
 ├── eng_oka_municipalities.csv
 └── okinawa_2024_accidents.csv
 
+executive_report/
+├── index.html
+├── styles.css
+├── charts.js
+├── build_data.py
+├── data.js
+└── vendor/
+
 images/
 
-requirements.txt
+.python-version
+pyproject.toml
+uv.lock
 README.md

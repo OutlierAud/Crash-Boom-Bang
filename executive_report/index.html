@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Okinawa road safety | 2024 executive brief</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/d3.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="charts.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap">
+      <div class="masthead-bar">
+        <a class="wordmark" href="#overview">Okinawa road safety</a>
+        <nav aria-label="Report sections">
+          <a href="#patterns">Crash patterns</a>
+          <a href="#priorities">Priorities</a>
+          <a href="#data-scope">Data scope</a>
+        </nav>
+      </div>
+      <div class="intro" id="overview">
+        <div>
+          <p class="eyebrow"><span class="accent-line"></span>2024 executive brief</p>
+          <h1>Road crashes<br>in Okinawa</h1>
+          <p class="intro-copy">Crash counts point to the South and Central regions. Fatal crashes also warrant a closer look at nighttime conditions and pedestrian crossings.</p>
+        </div>
+        <aside class="intro-note">
+          <p class="eyebrow">Where to begin</p>
+          <p>Review Route 58 and the locations of fatal nighttime and pedestrian crashes.</p>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <noscript><p class="notice">Enable JavaScript to display the charts and figures.</p></noscript>
+    <section class="metrics" aria-label="2024 in figures">
+      <div><p class="metric" data-metric="crashes">—</p><p>Recorded casualty crashes</p></div>
+      <div><p class="metric fatal" data-metric="fatal_crashes">—</p><p>Fatal crashes</p></div>
+      <div><p class="metric" data-metric="deaths">—</p><p>Deaths within 24 hours</p></div>
+      <div><p class="metric" data-metric="injuries">—</p><p>People injured</p></div>
+    </section>
+
+    <section class="section" id="patterns">
+      <div class="section-header">
+        <h2>Where and when crashes occurred</h2>
+        <p>Okinawa Prefecture · January–December 2024</p>
+      </div>
+      <div class="panel-grid">
+        <article class="panel">
+          <p class="eyebrow">Geography</p>
+          <h3>More than 4 in 5 crashes were in the South and Central regions</h3>
+          <p><strong id="regional-count"></strong> crashes across both regions. National Route 58 recorded <strong id="route-count"></strong> crashes prefecture-wide.</p>
+          <figure>
+            <figcaption>Five municipalities with the most crashes</figcaption>
+            <div id="municipalities" class="bar-list"></div>
+          </figure>
+        </article>
+        <article class="panel">
+          <p class="eyebrow">Lighting</p>
+          <h3>A higher share of crashes were fatal in full darkness</h3>
+          <p>Crashes in full darkness accounted for <strong id="night-deaths"></strong> deaths, across <strong id="night-crashes"></strong> crashes.</p>
+          <figure>
+            <figcaption>Share of recorded crashes that were fatal</figcaption>
+            <div id="lighting" class="bar-list"></div>
+          </figure>
+          <p class="chart-note">The police codebook groups the hours around sunrise and sunset separately.</p>
+        </article>
+      </div>
+
+      <article class="panel time-panel">
+        <div class="chart-heading">
+          <div>
+            <p class="eyebrow">Time of day</p>
+            <h3>Crash counts peaked in the weekday rush hours (morning and late afternoon)</h3>
+            <p>Across the year, weekdays recorded <strong id="morning-peak"></strong> and <strong id="afternoon-peak"></strong>.</p>
+          </div>
+          <div class="heat-legend" aria-label="Heatmap color scale">
+            <span>Recorded crashes</span>
+            <div class="heat-gradient"></div>
+            <div class="legend-labels"><span>0</span><span id="heat-max"></span></div>
+          </div>
+        </div>
+        <figure>
+          <div class="heat-scroll" tabindex="0" role="region" aria-label="Crash heatmap. On a narrow screen, scroll to see all 24 hours.">
+            <div id="heatmap"></div>
+          </div>
+          <figcaption class="chart-note" id="heat-detail" aria-live="polite">Hover over a cell or use the arrow keys in the chart to see its count.</figcaption>
+        </figure>
+      </article>
+
+      <article class="panel type-panel">
+        <div>
+          <p class="eyebrow">Crash type</p>
+          <h3>Pedestrian-vehicle crashes accounted for the most fatal crashes</h3>
+          <p><strong id="pedestrian-fatal"></strong> fatal crashes involved a pedestrian and a vehicle. Vehicle-vehicle crashes made up <strong id="vehicle-share"></strong> of all recorded crashes.</p>
+        </div>
+        <figure>
+          <figcaption>Fatal crashes by type</figcaption>
+          <div id="types" class="bar-list"></div>
+        </figure>
+      </article>
+    </section>
+
+    <section class="section" id="priorities">
+      <div class="section-header">
+        <h2>What to investigate first</h2>
+      </div>
+      <div class="priority-grid">
+        <article>
+          <h3>Route 58 and repeat crash locations</h3>
+          <p>Screen the corridor for repeat crashes. Match points to the road network and collect turning volumes before selecting junctions for intervention.</p>
+        </article>
+        <article>
+          <h3>Nighttime safety</h3>
+          <p>Review full-night fatal crashes for recurring locations. Check site lighting, speeds and nighttime traffic volumes.</p>
+        </article>
+        <article>
+          <h3>Pedestrian crossings</h3>
+          <p>Review fatal pedestrian crash sites and nearby crossings. Record pedestrian volumes, crossing layouts and visibility.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scope" id="data-scope">
+      <h2>Data scope</h2>
+      <p>Japan’s National Police Agency open data covers police-reported crashes involving injury or death. The Okinawa subset covers one year and has no entry for June 13. Comparing risk across places or times requires traffic or pedestrian volumes. The fatal-crash share describes crashes that have already occurred.</p>
+      <p class="sources">
+        <a href="https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2024/opendata_2024.html">2024 data source</a>
+        <a href="../notebooks/06_findings_and_recommendations.ipynb">Findings notebook</a>
+        <a href="https://d3-graph-gallery.com/">Chart design reference</a>
+      </p>
+    </section>
+  </main>
+
+  <footer><div class="wrap">Okinawa Traffic Incidents · 2024</div></footer>
+</body>
+</html>
