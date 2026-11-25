@@ -1,8 +1,6 @@
 import duckdb
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from config import (
+from notebooks.config import (
     FILTERED_DATA_PATH,
     MUNICIPAL_DATA_PATH,
 )

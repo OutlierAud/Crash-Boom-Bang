@@ -23,7 +23,7 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 
 🗄️ **Supporting Documentation**
 - File: `data/eng_oka_municipalities.csv`
-- Contains: Okinawa municipalities code list & corresponding municipal names
+- Contains: Okinawa municipality codes, names and regions from the [prefecture’s civil engineering office code table](https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/026/557/00-1code-shityouson.pdf). The Okinawa-only join uses the last three digits.
  
 - Link: https://www.npa.go.jp/publications/statistics/koutsuu/opendata/koudohyou/koudohyou.html
 - Downloadable documentation (Japanese only) for interpreting codes
@@ -31,9 +31,9 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 📖 **Code reference** [National Police Agency 2024 codebook (PDF)](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2024/codebook_2024.pdf) (Japanese only)
 
 ## Data Quality Notes
-- **Year inconsistency**: Approximately 3% of records in the 2024 dataset have `occurrence_year` values from 2019–2023. These records were excluded from 2024‑specific analyses (like the Okinawa 2024 filter above).
+- **Year inconsistency**: About 3% of the national 2024 release has `occurence_year` values from 2019–2023. The Okinawa year-end tally includes 2,875 records in the release. The analysis uses the 2,749 with a 2024 occurrence date. All 126 excluded Okinawa records have weekdays consistent with their recorded earlier dates, and none has a June 13 month and day. See Part 1 and the [Okinawa Police tally](https://www.police.pref.okinawa.jp/docs/2024022700036/file_contents/R6_zinnsinnziko_12.pdf).
 - **Data Gap**: The 2024 Okinawa Prefecture subset had no incident records for June 13 (2024-06-13). All other 365 days of the leap year are present.
-- **Primary key**: `report_id` alone is not unique. The combination of `report_id` and `police_station_code` uniquely identifies each record.
+- **Primary key**: `report_id` alone is not unique. The combination of `report_id` and `police_station_code` identifies records within Okinawa. For the national file, add `prefecture_code`. Part 1 asserts both keys.
 
 ## Dataset Scope  
 - **Accident coverage:** The dataset contains only road traffic accidents involving casualties. Property-damage-only accidents are not included.
@@ -55,13 +55,13 @@ This project uses a SQL-driven exploratory data analysis (EDA) pipeline to ident
 **2. Core Analysis & Geospatial Processing (SQL / DuckDB)**
 - Filtering, joining lookup tables, and aggregating the database using modular SQL commands.
 - **Geospatial decoding:** Converted raw packed DMS (Degrees-Minutes-Seconds) coordinates into decimal degrees directly in SQL.
-- **Clustering:** Grouped accidents into ~110 m grid cells by rounding coordinates to identify high-risk "black spots".
+- **Clustering:** Grouped crashes into rounded coordinate cells and checked 150 m neighbourhoods to screen for repeated crash locations.
 
 **3. Visualization & Reporting (Python)**
 - **Pandas:** Data loading, wrangling, and validation.
 - **Folium:** Interactive heat map for geospatial analysis (Part 3).
 - **Matplotlib / Seaborn:** Static statistical charts (bar charts, Pareto charts, temporal trends) across all notebooks.
-- **Validation:** Recomputed the headline figures from the project data and checked category definitions against the NPA codebook. Part 6 summarises the verified figures and the limits of the hotspot analysis.
+- **Validation:** Recomputed the headline figures from the project data and checked category definitions against the NPA codebook. Part 1 checks the raw dates and join keys. Part 6 summarises figures generated from the filtered CSV and explains the limits of the hotspot analysis.
 
 --- 
 ## Run the notebooks with uv

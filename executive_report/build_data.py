@@ -1,5 +1,6 @@
 """Refresh the D3 report data from the two project CSVs."""
 import json
+import sys
 from pathlib import Path
 
 import duckdb
@@ -7,6 +8,10 @@ import duckdb
 
 report_dir = Path(__file__).resolve().parent
 data_dir = report_dir.parent / "data"
+if __name__ == "__main__":
+    sys.path.insert(0, str(report_dir.parent))
+
+from sql.code_labels import CRASH_TYPES, LIGHTING, code_label
 
 
 def build_report_data():
@@ -78,18 +83,10 @@ def build_report_data():
         ORDER BY day, hour
         """
 
-        query_lighting = """
+        query_lighting = f"""
         SELECT
             day_night_code AS code,
-            CASE day_night_code
-                WHEN 11 THEN 'First hour after sunrise'
-                WHEN 12 THEN 'Full daylight'
-                WHEN 13 THEN 'Last hour before sunset'
-                WHEN 21 THEN 'First hour after sunset'
-                WHEN 22 THEN 'Full night'
-                WHEN 23 THEN 'Last hour before sunrise'
-                ELSE 'Unmapped code'
-            END AS label,
+            {code_label("day_night_code", LIGHTING)} AS label,
             COUNT(*) AS crashes,
             COUNT(*) FILTER (WHERE accident_details_code = 1) AS fatal_crashes,
             SUM(fatalities) AS deaths
@@ -98,15 +95,9 @@ def build_report_data():
         ORDER BY code
         """
 
-        query_types = """
+        query_types = f"""
         SELECT
-            CASE accident_type_code
-                WHEN 1 THEN 'Pedestrian–vehicle'
-                WHEN 21 THEN 'Vehicle–vehicle'
-                WHEN 41 THEN 'Single vehicle'
-                WHEN 61 THEN 'Train'
-                ELSE 'Unmapped code'
-            END AS label,
+            {code_label("accident_type_code", CRASH_TYPES)} AS label,
             COUNT(*) AS crashes,
             COUNT(*) FILTER (WHERE accident_details_code = 1) AS fatal_crashes
         FROM accidents

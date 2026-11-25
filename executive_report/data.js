@@ -21,7 +21,7 @@ const reportData = {
       "crashes": 249
     },
     {
-      "label": "Itoman City",
+      "label": "Ginowan City",
       "crashes": 233
     },
     {
@@ -31,12 +31,12 @@ const reportData = {
   ],
   "regions": [
     {
-      "label": "South",
-      "crashes": 1164
+      "label": "Central",
+      "crashes": 1270
     },
     {
-      "label": "Central",
-      "crashes": 1131
+      "label": "South",
+      "crashes": 1041
     },
     {
       "label": "North",
@@ -44,7 +44,7 @@ const reportData = {
     },
     {
       "label": "Yaeyama",
-      "crashes": 121
+      "crashes": 105
     },
     {
       "label": "Miyako",
